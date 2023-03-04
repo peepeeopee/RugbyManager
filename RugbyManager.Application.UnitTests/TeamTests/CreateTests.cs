@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using RugbyManager.Application.Interfaces;
 using RugbyManager.Application.Teams.Commands;
-using RugbyManager.Application.UnitTests.DataPersistence;
 using RugbyManager.Domain.Entities;
 using RugbyManager.Domain.Exceptions;
 
@@ -48,9 +47,4 @@ public class CreateTests : BaseTest
         teamId.Should()
               .NotBe(0);
     }
-}
-
-public class BaseTest
-{
-    internal TestDbContext appContext { get; set; } = new TestDbContext();
 }

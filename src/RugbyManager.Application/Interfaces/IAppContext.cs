@@ -9,6 +9,6 @@ public interface IAppContext
     DbSet<Stadium> Stadiums { get; }
     DbSet<Team> Teams { get; }
     DbSet<Transfer> Transfers { get; }
-
-    Task SaveChangesAsync();
+    
+    Task SaveChangesAsync(CancellationToken token = default);
 }

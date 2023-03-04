@@ -19,18 +19,18 @@ public class AddTeamCommand : IRequest<int>
 
 public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, int>
 {
-    private readonly IAppContext _appContext;
+    private readonly IAppDbContext _appDbContext;
     private readonly IMapper _mapper;
 
-    public AddTeamCommandHandler(IAppContext appContext, IMapper mapper)
+    public AddTeamCommandHandler(IAppDbContext appDbContext, IMapper mapper)
     {
-        _appContext = appContext;
+        _appDbContext = appDbContext;
         _mapper = mapper;
     }
 
     public async Task<int> Handle(AddTeamCommand request, CancellationToken cancellationToken)
     {
-        if (await _appContext.Teams
+        if (await _appDbContext.Teams
                              .FirstOrDefaultAsync(t =>
                                      t.Name == request.Name,
                                  cancellationToken) is not null)
@@ -40,9 +40,9 @@ public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, int>
 
         var team = _mapper.Map<Team>(request);
 
-        await _appContext.Teams.AddAsync(team, cancellationToken);
+        await _appDbContext.Teams.AddAsync(team, cancellationToken);
 
-        await _appContext.SaveChangesAsync(cancellationToken);
+        await _appDbContext.SaveChangesAsync(cancellationToken);
 
         return team.Id;
     }

@@ -14,12 +14,12 @@ public class AddPlayerCommand : IRequest<int>
 
 public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, int>
 {
-    private readonly IAppContext _appContext;
+    private readonly IAppDbContext _appDbContext;
     private readonly IMapper _mapper;
 
-    public AddPlayerCommandHandler(IAppContext appContext, IMapper mapper)
+    public AddPlayerCommandHandler(IAppDbContext appDbContext, IMapper mapper)
     {
-        _appContext = appContext;
+        _appDbContext = appDbContext;
         _mapper = mapper;
     }
 
@@ -27,9 +27,9 @@ public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, int>
     {
         var player = _mapper.Map<Player>(request);
 
-        await _appContext.Players.AddAsync(player, cancellationToken);
+        await _appDbContext.Players.AddAsync(player, cancellationToken);
 
-        await _appContext.SaveChangesAsync(cancellationToken);
+        await _appDbContext.SaveChangesAsync(cancellationToken);
 
         return player.Id;
     }

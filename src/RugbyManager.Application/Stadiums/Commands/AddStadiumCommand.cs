@@ -21,18 +21,18 @@ public class AddStadiumCommand : IRequest<int>
 
 public class AddStadiumCommandHandler : IRequestHandler<AddStadiumCommand, int>
 {
-    private readonly IAppContext _appContext;
+    private readonly IAppDbContext _appDbContext;
     private readonly IMapper _mapper;
 
-    public AddStadiumCommandHandler(IAppContext appContext, IMapper mapper)
+    public AddStadiumCommandHandler(IAppDbContext appDbContext, IMapper mapper)
     {
-        _appContext = appContext;
+        _appDbContext = appDbContext;
         _mapper = mapper;
     }
 
     public async Task<int> Handle(AddStadiumCommand request, CancellationToken cancellationToken)
     {
-        if (await _appContext.Stadiums
+        if (await _appDbContext.Stadiums
                              .FirstOrDefaultAsync(t =>
                                      t.Name == request.Name,
                                  cancellationToken) is not null)
@@ -42,9 +42,9 @@ public class AddStadiumCommandHandler : IRequestHandler<AddStadiumCommand, int>
 
         var stadium = _mapper.Map<Stadium>(request);
 
-        await _appContext.Stadiums.AddAsync(stadium, cancellationToken);
+        await _appDbContext.Stadiums.AddAsync(stadium, cancellationToken);
 
-        await _appContext.SaveChangesAsync(cancellationToken);
+        await _appDbContext.SaveChangesAsync(cancellationToken);
 
         return stadium.Id;
     }

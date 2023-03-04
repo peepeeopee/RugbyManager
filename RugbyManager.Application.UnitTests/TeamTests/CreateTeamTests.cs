@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using RugbyManager.Application.Interfaces;
+using RugbyManager.Application.Common.Interfaces;
 using RugbyManager.Application.Teams.Commands;
 using RugbyManager.Domain.Entities;
 using RugbyManager.Domain.Exceptions;
@@ -25,7 +25,7 @@ public class CreateTeamTests : BaseTest
 
         var command = new AddTeamCommand(teamName);
 
-        var handler = new AddTeamCommandHandler(appContext);
+        var handler = new AddTeamCommandHandler(appContext,mapper);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -40,7 +40,7 @@ public class CreateTeamTests : BaseTest
 
         var command = new AddTeamCommand(teamName);
 
-        var handler = new AddTeamCommandHandler(appContext);
+        var handler = new AddTeamCommandHandler(appContext, mapper);
 
         var teamId = await handler.Handle(command, CancellationToken.None);
 

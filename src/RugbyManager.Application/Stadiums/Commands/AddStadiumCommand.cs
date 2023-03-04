@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RugbyManager.Application.Interfaces;
+using RugbyManager.Application.Common.Interfaces;
 using RugbyManager.Domain.Entities;
 using RugbyManager.Domain.Exceptions;
 
@@ -21,10 +22,12 @@ public class AddStadiumCommand : IRequest<int>
 public class AddStadiumCommandHandler : IRequestHandler<AddStadiumCommand, int>
 {
     private readonly IAppContext _appContext;
+    private readonly IMapper _mapper;
 
-    public AddStadiumCommandHandler(IAppContext appContext)
+    public AddStadiumCommandHandler(IAppContext appContext, IMapper mapper)
     {
         _appContext = appContext;
+        _mapper = mapper;
     }
 
     public async Task<int> Handle(AddStadiumCommand request, CancellationToken cancellationToken)
@@ -37,11 +40,7 @@ public class AddStadiumCommandHandler : IRequestHandler<AddStadiumCommand, int>
             throw new StadiumAlreadyExistsException(request.Name);
         }
 
-        Stadium stadium = new()
-        {
-            Name = request.Name,
-            Capacity = request.Capacity
-        };
+        var stadium = _mapper.Map<Stadium>(request);
 
         await _appContext.Stadiums.AddAsync(stadium, cancellationToken);
 

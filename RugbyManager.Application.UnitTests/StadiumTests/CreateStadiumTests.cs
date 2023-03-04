@@ -24,7 +24,7 @@ public class CreateStadiumTests : BaseTest
 
         var command = new AddStadiumCommand(stadiumName, 420);
 
-        var handler = new AddStadiumCommandHandler(appContext);
+        var handler = new AddStadiumCommandHandler(appContext, mapper);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -39,7 +39,7 @@ public class CreateStadiumTests : BaseTest
 
         var command = new AddStadiumCommand(teamName, 420);
 
-        var handler = new AddStadiumCommandHandler(appContext);
+        var handler = new AddStadiumCommandHandler(appContext, mapper);
 
         var stadiumId = await handler.Handle(command, CancellationToken.None);
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RugbyManager.Application.Interfaces;
+using RugbyManager.Application.Common.Interfaces;
 using RugbyManager.Domain.Entities;
 
 namespace RugbyManager.Application.UnitTests.DataPersistence;

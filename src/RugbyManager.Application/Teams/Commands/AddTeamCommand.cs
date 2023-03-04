@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RugbyManager.Application.Interfaces;
+using RugbyManager.Application.Common.Interfaces;
 using RugbyManager.Domain.Entities;
 using RugbyManager.Domain.Exceptions;
 
@@ -19,10 +20,12 @@ public class AddTeamCommand : IRequest<int>
 public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, int>
 {
     private readonly IAppContext _appContext;
+    private readonly IMapper _mapper;
 
-    public AddTeamCommandHandler(IAppContext appContext)
+    public AddTeamCommandHandler(IAppContext appContext, IMapper mapper)
     {
         _appContext = appContext;
+        _mapper = mapper;
     }
 
     public async Task<int> Handle(AddTeamCommand request, CancellationToken cancellationToken)
@@ -35,15 +38,12 @@ public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, int>
             throw new TeamAlreadyExistsException(request.Name);
         }
 
-        Team newTeam = new()
-        {
-            Name = request.Name
-        };
+        var team = _mapper.Map<Team>(request);
 
-        await _appContext.Teams.AddAsync(newTeam, cancellationToken);
+        await _appContext.Teams.AddAsync(team, cancellationToken);
 
         await _appContext.SaveChangesAsync(cancellationToken);
 
-        return newTeam.Id;
+        return team.Id;
     }
 }

@@ -4,17 +4,13 @@ using RugbyManager.Domain.Entities;
 
 namespace RugbyManager.Application.UnitTests.DataPersistence;
 
-public class TestDbContext : DbContext, IAppContext
+public class TestDbContext : DbContext, IAppDbContext
 {
     public DbSet<Player> Players { get; set; }
     public DbSet<Stadium> Stadiums { get; set; }
     public DbSet<Team> Teams { get; set; }
     public DbSet<Transfer> Transfers { get; set; }
-
-    public async Task SaveChangesAsync(CancellationToken token = default) =>
-        await base.SaveChangesAsync(token);
-
-
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseInMemoryDatabase("TestDb");

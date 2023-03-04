@@ -14,17 +14,17 @@ public class CreateStadiumTests : BaseTest
     {
         var stadiumName = "Existing Stadium";
 
-        await appContext.Stadiums.AddAsync(new Stadium()
+        await AppDbContext.Stadiums.AddAsync(new Stadium()
         {
             Name = stadiumName,
             Capacity = 420
         });
 
-        await appContext.SaveChangesAsync();
+        await AppDbContext.SaveChangesAsync();
 
         var command = new AddStadiumCommand(stadiumName, 420);
 
-        var handler = new AddStadiumCommandHandler(appContext, mapper);
+        var handler = new AddStadiumCommandHandler(AppDbContext, mapper);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -39,7 +39,7 @@ public class CreateStadiumTests : BaseTest
 
         var command = new AddStadiumCommand(teamName, 420);
 
-        var handler = new AddStadiumCommandHandler(appContext, mapper);
+        var handler = new AddStadiumCommandHandler(AppDbContext, mapper);
 
         var stadiumId = await handler.Handle(command, CancellationToken.None);
 

@@ -9,7 +9,7 @@ using RugbyManager.Domain.Exceptions;
 namespace RugbyManager.Application.UnitTests.TeamTests;
 
 [Collection("Sequential")]
-public class CreateTests : BaseTest
+public class CreateTeamTests : BaseTest
 {
     [Fact]
     public async Task CreateTeam_GivenTeamNameForExistingTeam_ErrorThrown()
@@ -23,9 +23,9 @@ public class CreateTests : BaseTest
 
         await appContext.SaveChangesAsync();
 
-        var command = new CreateTeamCommand(teamName);
+        var command = new AddTeamCommand(teamName);
 
-        var handler = new CreateTeamCommandHandler(appContext);
+        var handler = new AddTeamCommandHandler(appContext);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -38,9 +38,9 @@ public class CreateTests : BaseTest
     {
         var teamName = "New Team";
 
-        var command = new CreateTeamCommand(teamName);
+        var command = new AddTeamCommand(teamName);
 
-        var handler = new CreateTeamCommandHandler(appContext);
+        var handler = new AddTeamCommandHandler(appContext);
 
         var teamId = await handler.Handle(command, CancellationToken.None);
 

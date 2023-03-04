@@ -6,26 +6,26 @@ using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.Teams.Commands;
 
-public class CreateTeamCommand : IRequest<int>
+public class AddTeamCommand : IRequest<int>
 {
     public string Name { get; private set; }
 
-    public CreateTeamCommand(string name)
+    public AddTeamCommand(string name)
     {
         Name = name;
     }
 }
 
-public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand, int>
+public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, int>
 {
     private readonly IAppContext _appContext;
 
-    public CreateTeamCommandHandler(IAppContext appContext)
+    public AddTeamCommandHandler(IAppContext appContext)
     {
         _appContext = appContext;
     }
 
-    public async Task<int> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(AddTeamCommand request, CancellationToken cancellationToken)
     {
         if (await _appContext.Teams
                              .FirstOrDefaultAsync(t =>

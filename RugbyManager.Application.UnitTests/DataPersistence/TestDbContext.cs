@@ -2,7 +2,7 @@
 using RugbyManager.Application.Interfaces;
 using RugbyManager.Domain.Entities;
 
-namespace RugbyManager.Domain.DataPersistence;
+namespace RugbyManager.Application.UnitTests.DataPersistence;
 
 public class TestDbContext : DbContext, IAppContext
 {

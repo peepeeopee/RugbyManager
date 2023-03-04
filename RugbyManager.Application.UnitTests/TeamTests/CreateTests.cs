@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using RugbyManager.Application.Interfaces;
 using RugbyManager.Application.Teams.Commands;
-using RugbyManager.Domain.DataPersistence;
+using RugbyManager.Application.UnitTests.DataPersistence;
 using RugbyManager.Domain.Entities;
 using RugbyManager.Domain.Exceptions;
 
-namespace RugbyManager.Application.UnitTests;
+namespace RugbyManager.Application.UnitTests.TeamTests;
 
 [Collection("Sequential")]
-public class TeamTests : BaseTest
+public class CreateTests : BaseTest
 {
     [Fact]
     public async Task CreateTeam_GivenTeamNameForExistingTeam_ErrorThrown()

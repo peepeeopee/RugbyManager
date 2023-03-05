@@ -11,14 +11,3 @@ public class AddTeamRequestValidator : AbstractValidator<AddTeamRequest>
         RuleFor(x => x.Name).NotEmpty();
     }
 }
-
-public class UpdateTeamRequestValidator : AbstractValidator<UpdateTeamRequest>
-{
-    public UpdateTeamRequestValidator()
-    {
-        RuleFor(x => x.TeamId)
-            .GreaterThan(0);
-        RuleFor(x => x.Name)
-            .NotEmpty();
-    }
-}

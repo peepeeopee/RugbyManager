@@ -6,12 +6,12 @@ namespace RugbyManager.Application.UnitTests;
 
 public class BaseTest
 {
-    internal TestDbContext testDbContext { get; set; } = new TestDbContext();
-    internal IMapper mapper { get; set; }
+    internal TestDbContext _testDbContext { get; set; } = new TestDbContext();
+    internal IMapper _mapper { get; set; }
 
     public BaseTest()
     {
-        mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>())
+        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>())
             .CreateMapper();
     }
 }

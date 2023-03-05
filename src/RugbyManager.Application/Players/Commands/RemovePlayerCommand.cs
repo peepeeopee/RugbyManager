@@ -10,11 +10,11 @@ public class RemovePlayerCommand : IRequest
     public int PlayerId { get; init; }
 }
 
-public class DeletePlayerCommandHandler : IRequestHandler<RemovePlayerCommand>
+public class RemovePlayerCommandHandler : IRequestHandler<RemovePlayerCommand>
 {
     private readonly IAppDbContext _appDbContext;
 
-    public DeletePlayerCommandHandler(IAppDbContext appDbContext)
+    public RemovePlayerCommandHandler(IAppDbContext appDbContext)
     {
         _appDbContext = appDbContext;
     }

@@ -16,19 +16,19 @@ public class CreateTeamTests : BaseTest
     {
         var teamName = "Existing Team";
 
-        await AppDbContext.Teams.AddAsync(new Team()
+        await TestDbContext.Teams.AddAsync(new Team()
         {
             Name = teamName
         });
 
-        await AppDbContext.SaveChangesAsync();
+        await TestDbContext.SaveChangesAsync();
 
         AddTeamCommand command = new ()
         {
             Name = teamName
         };
 
-        var handler = new AddTeamCommandHandler(AppDbContext,mapper);
+        var handler = new AddTeamCommandHandler(TestDbContext,mapper);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -46,7 +46,7 @@ public class CreateTeamTests : BaseTest
             Name = teamName
         };
 
-        var handler = new AddTeamCommandHandler(AppDbContext, mapper);
+        var handler = new AddTeamCommandHandler(TestDbContext, mapper);
 
         var teamId = await handler.Handle(command, CancellationToken.None);
 

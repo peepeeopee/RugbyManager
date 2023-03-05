@@ -6,8 +6,3 @@ public class AddPlayerRequest
     public string? Surname { get; set; }
     public double? Height { get; set; }
 }
-
-public class RemovePlayerRequest
-{
-    public int PlayerId { get; set; }
-}

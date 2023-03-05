@@ -36,6 +36,7 @@ public class MappingTests
     [InlineData(typeof(AddTeamRequest), typeof(AddTeamCommand))]
     [InlineData(typeof(UpdatePlayerRequest), typeof(UpdatePlayerCommand))]
     [InlineData(typeof(UpdateStadiumRequest), typeof(UpdateStadiumCommand))]
+    [InlineData(typeof(UpdateTeamRequest), typeof(UpdateTeamCommand))]
     [InlineData(typeof(RemovePlayerRequest), typeof(RemovePlayerCommand))]
     [InlineData(typeof(RemoveStadiumRequest), typeof(RemoveStadiumCommand))]
     public void GivenSourceType_Mapped_ToDestinationType(Type sourceType, Type destinationType)

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using RugbyManager.Application.Common.Models;
+using RugbyManager.Application.Common.Models.Player;
 
 namespace RugbyManager.Application.Players.Validators;
 
@@ -11,6 +11,8 @@ public class UpdatePlayerRequestValidator : AbstractValidator<UpdatePlayerReques
         RuleFor(x => x.Surname)
             .NotEmpty();
         RuleFor(x => x.Height)
+            .GreaterThan(0);
+        RuleFor(x => x.Id)
             .GreaterThan(0);
     }
 }

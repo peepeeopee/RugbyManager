@@ -2,10 +2,12 @@
 using FluentAssertions;
 using RugbyManager.Application.Common.Mapping;
 using System.Runtime.Serialization;
-using RugbyManager.Application.Common.Models;
 using RugbyManager.Application.Players.Commands;
 using RugbyManager.Application.Stadiums.Commands;
 using RugbyManager.Application.Teams.Commands;
+using RugbyManager.Application.Common.Models.Player;
+using RugbyManager.Application.Common.Models.Stadium;
+using RugbyManager.Application.Common.Models.Team;
 
 namespace RugbyManager.Application.UnitTests.Mapping;
 

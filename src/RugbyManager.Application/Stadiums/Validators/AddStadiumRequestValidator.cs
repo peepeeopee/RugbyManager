@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using RugbyManager.Application.Common.Models;
+using RugbyManager.Application.Common.Models.Stadium;
 
 namespace RugbyManager.Application.Stadiums.Validators;
 

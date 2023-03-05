@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RugbyManager.Application.Common.Interfaces;
 using RugbyManager.Application.Common.Mapping;
-using RugbyManager.Application.Common.Models;
+using RugbyManager.Application.Common.Models.Stadium;
 using RugbyManager.Domain.Entities;
 using RugbyManager.Domain.Exceptions;
 

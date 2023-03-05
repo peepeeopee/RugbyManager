@@ -1,4 +1,4 @@
-﻿namespace RugbyManager.Application.Common.Models;
+﻿namespace RugbyManager.Application.Common.Models.Stadium;
 
 public class AddStadiumRequest
 {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using RugbyManager.Application.Common.Extensions;
-using RugbyManager.Application.Common.Models;
+using RugbyManager.Application.Common.Models.Stadium;
 using RugbyManager.Application.Stadiums.Commands;
 using RugbyManager.WebApi.Filters;
 
@@ -11,13 +11,13 @@ public static class StadiumEndpoints
 {
     public static void AddStadiumEndpoints(this WebApplication app)
     {
-        var stadium = app.MapGroup("/stadium");
+        var stadium = app.MapGroup("/stadium")
+                         .AddEndpointFilter<ValidationFilter<AddStadiumRequest>>();
 
         stadium.MapPost("/",
                    async (IMediator mediator, IMapper mapper, AddStadiumRequest request) =>
                        await mediator.Send(request.Transform(((IMapperBase) mapper).Map<AddStadiumCommand>))
                )
-               .AddEndpointFilter<ValidationFilter<AddStadiumRequest>>()
                .WithOpenApi();
     }
 }

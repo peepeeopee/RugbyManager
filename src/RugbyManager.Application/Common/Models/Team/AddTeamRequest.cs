@@ -1,4 +1,4 @@
-﻿namespace RugbyManager.Application.Common.Models;
+﻿namespace RugbyManager.Application.Common.Models.Team;
 
 public class AddTeamRequest : BaseRequest
 {

@@ -2,7 +2,7 @@
 using MediatR;
 using RugbyManager.Application.Common.Interfaces;
 using RugbyManager.Application.Common.Mapping;
-using RugbyManager.Application.Common.Models;
+using RugbyManager.Application.Common.Models.Player;
 using RugbyManager.Domain.Entities;
 
 namespace RugbyManager.Application.Players.Commands;

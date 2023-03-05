@@ -40,9 +40,9 @@ public static class TeamEndpoints
             .WithOpenApi();
 
         team.MapPut("/",
-            async (IMediator mediator, IMapper mapper, [FromBody] UpdateTeamRequest request) =>
-                await mediator.Send(request.Transform(mapper.Map<UpdateTeamCommand>))
-                )
+                async (IMediator mediator, IMapper mapper, [FromBody] UpdateTeamRequest request) =>
+                    await mediator.Send(request.Transform(mapper.Map<UpdateTeamCommand>))
+            )
             .AddEndpointFilter<ValidationFilter<UpdateTeamRequest>>()
             .WithOpenApi();
 
@@ -51,7 +51,7 @@ public static class TeamEndpoints
                     await mediator.Send(new RemoveTeamRequest()
                     {
                         TeamId = teamId
-                    })
+                    }.Transform(mapper.Map<RemoveTeamCommand>))
             )
             .AddEndpointFilter<ValidationFilter<RemoveTeamRequest>>()
             .WithOpenApi();

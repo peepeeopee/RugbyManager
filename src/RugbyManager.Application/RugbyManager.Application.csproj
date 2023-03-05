@@ -10,7 +10,10 @@
     <Folder Include="Common\Mapping\" />
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Extensions\" />
+    <Folder Include="Players\Queries\" />
+    <Folder Include="Stadiums\Queries\" />
     <Folder Include="Transfers\Commands\" />
+    <Folder Include="Transfers\Queries\" />
     <Folder Include="Transfers\Validators\" />
   </ItemGroup>
 

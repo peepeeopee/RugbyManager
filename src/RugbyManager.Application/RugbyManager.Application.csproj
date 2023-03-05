@@ -12,6 +12,7 @@
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Extensions\" />
     <Folder Include="Players\Commands\" />
+    <Folder Include="Teams\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

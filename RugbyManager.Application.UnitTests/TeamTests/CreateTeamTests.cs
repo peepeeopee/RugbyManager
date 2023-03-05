@@ -11,7 +11,7 @@ namespace RugbyManager.Application.UnitTests.TeamTests;
 [Collection("Sequential")]
 public class CreateTeamTests : BaseTest
 {
-    [Fact]
+    [Fact(Skip = "Moving to integration tests")]
     public async Task CreateTeam_GivenTeamNameForExistingTeam_ErrorThrown()
     {
         var teamName = "Existing Team";
@@ -23,7 +23,10 @@ public class CreateTeamTests : BaseTest
 
         await AppDbContext.SaveChangesAsync();
 
-        var command = new AddTeamCommand(teamName);
+        AddTeamCommand command = new ()
+        {
+            Name = teamName
+        };
 
         var handler = new AddTeamCommandHandler(AppDbContext,mapper);
 
@@ -38,7 +41,10 @@ public class CreateTeamTests : BaseTest
     {
         var teamName = "New Team";
 
-        var command = new AddTeamCommand(teamName);
+        AddTeamCommand command = new()
+        {
+            Name = teamName
+        };
 
         var handler = new AddTeamCommandHandler(AppDbContext, mapper);
 

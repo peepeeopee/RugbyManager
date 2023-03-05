@@ -9,7 +9,7 @@ namespace RugbyManager.Application.UnitTests.StadiumTests;
 [Collection("Sequential")]
 public class CreateStadiumTests : BaseTest
 {
-    [Fact]
+    [Fact(Skip = "Moving to integration tests")]
     public async Task CreateStadium_GivenStadiumNameForExistingTeam_ErrorThrown()
     {
         var stadiumName = "Existing Stadium";
@@ -22,7 +22,11 @@ public class CreateStadiumTests : BaseTest
 
         await AppDbContext.SaveChangesAsync();
 
-        var command = new AddStadiumCommand(stadiumName, 420);
+        AddStadiumCommand command = new ()
+        {
+            Name = stadiumName,
+            Capacity = 420
+        };
 
         var handler = new AddStadiumCommandHandler(AppDbContext, mapper);
 
@@ -35,9 +39,13 @@ public class CreateStadiumTests : BaseTest
     [Fact]
     public async Task AddStadium_GivenStadiumNameWhichDoesntExist_IdReturned()
     {
-        var teamName = "New Stadium";
+        var stadiumName = "New Stadium";
 
-        var command = new AddStadiumCommand(teamName, 420);
+        AddStadiumCommand command = new()
+        {
+            Name = stadiumName,
+            Capacity = 420
+        };
 
         var handler = new AddStadiumCommandHandler(AppDbContext, mapper);
 

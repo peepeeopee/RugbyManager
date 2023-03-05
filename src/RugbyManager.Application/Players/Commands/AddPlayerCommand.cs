@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using MediatR;
 using RugbyManager.Application.Common.Interfaces;
+using RugbyManager.Application.Common.Mapping;
+using RugbyManager.Application.Common.Models;
 using RugbyManager.Domain.Entities;
 
 namespace RugbyManager.Application.Players.Commands;
 
-public class AddPlayerCommand : IRequest<int>
+public class AddPlayerCommand : IRequest<int>, IMapFrom<AddPlayerRequest>
 {
-    public string? FirstName { get; set; }
-    public string? Surname { get; set; }
-    public double? Height { get; set; }
+    public string? FirstName { get; init; }
+    public string? Surname { get; init; }
+    public double? Height { get; init; }
 }
 
 public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, int>
@@ -25,7 +27,12 @@ public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, int>
 
     public async Task<int> Handle(AddPlayerCommand request, CancellationToken cancellationToken)
     {
-        var player = _mapper.Map<Player>(request);
+        Player player = new()
+        {
+            FirstName = request.FirstName!,
+            Surname = request.Surname!,
+            Height = request.Height
+        };
 
         await _appDbContext.Players.AddAsync(player, cancellationToken);
 

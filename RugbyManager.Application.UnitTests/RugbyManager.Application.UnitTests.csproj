@@ -29,4 +29,8 @@
     <ProjectReference Include="..\src\RugbyManager.Application\RugbyManager.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapping\" />
+  </ItemGroup>
+
 </Project>

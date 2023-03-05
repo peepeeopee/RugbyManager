@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RugbyManager.Application.Common.Interfaces;
+using RugbyManager.Application.Common.Mapping;
+using RugbyManager.Application.Common.Models.Player;
 using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.Players.Commands;
 
-public class RemovePlayerCommand : IRequest
+public class RemovePlayerCommand : IRequest, IMapFrom<RemovePlayerRequest>
 {
     public int PlayerId { get; init; }
 }

@@ -21,7 +21,7 @@ public class UpdatePlayerTests : BaseTest
             Height = 188
         };
 
-        UpdatePlayerCommandHandler handler = new(TestDbContext);
+        UpdatePlayerCommandHandler handler = new(testDbContext);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -39,9 +39,9 @@ public class UpdatePlayerTests : BaseTest
             Height = 188
         };
 
-        await TestDbContext.Players.AddAsync(player);
+        await testDbContext.Players.AddAsync(player);
 
-        await TestDbContext.SaveChangesAsync();
+        await testDbContext.SaveChangesAsync();
 
         UpdatePlayerCommand command = new()
         {
@@ -51,13 +51,13 @@ public class UpdatePlayerTests : BaseTest
             Height = 188
         };
 
-        UpdatePlayerCommandHandler handler = new(TestDbContext);
+        UpdatePlayerCommandHandler handler = new(testDbContext);
 
         await handler.Handle(command, CancellationToken.None);
 
-        var updatedPlayer = await TestDbContext.Players.FirstOrDefaultAsync(x => x.Id == player.Id);
+        var updatedPlayer = await testDbContext.Players.FirstOrDefaultAsync(x => x.Id == player.Id);
 
-        updatedPlayer.FirstName.Should()
+        updatedPlayer!.FirstName.Should()
                      .Be(command.FirstName);
     }
 }

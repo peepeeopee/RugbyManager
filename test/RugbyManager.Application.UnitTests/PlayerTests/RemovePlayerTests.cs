@@ -5,7 +5,7 @@ using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.UnitTests.PlayerTests;
 
-public class DeletePlayerTests : BaseTest
+public class RemovePlayerTests : BaseTest
 {
     [Fact]
     public async Task RemovePlayer_GivenNonExistingPlayer_PlayerDeleted()
@@ -15,7 +15,7 @@ public class DeletePlayerTests : BaseTest
             PlayerId = 69
         };
 
-        RemovePlayerCommandHandler handler = new(TestDbContext);
+        RemovePlayerCommandHandler handler = new(testDbContext);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -33,15 +33,15 @@ public class DeletePlayerTests : BaseTest
             Surname = "Du Randt",
             Height = 190
         };
-        TestDbContext.Players.Add(playerToDelete);
-        await TestDbContext.SaveChangesAsync(CancellationToken.None);
+        testDbContext.Players.Add(playerToDelete);
+        await testDbContext.SaveChangesAsync(CancellationToken.None);
 
         RemovePlayerCommand command = new()
         {
             PlayerId = playerToDelete.Id
         };
 
-        RemovePlayerCommandHandler handler = new(TestDbContext);
+        RemovePlayerCommandHandler handler = new(testDbContext);
 
         await handler.Handle(command, CancellationToken.None);
 

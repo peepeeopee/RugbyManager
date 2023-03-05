@@ -12,7 +12,7 @@ public class UpdatePlayerRequestValidator : AbstractValidator<UpdatePlayerReques
             .NotEmpty();
         RuleFor(x => x.Height)
             .GreaterThan(0);
-        RuleFor(x => x.Id)
+        RuleFor(x => x.PlayerId)
             .GreaterThan(0);
     }
 }

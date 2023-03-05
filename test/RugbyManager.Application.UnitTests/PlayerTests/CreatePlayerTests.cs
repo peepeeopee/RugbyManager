@@ -12,8 +12,6 @@ public class CreatePlayerTests : BaseTest
     [Fact]
     public async Task CreatePlayer_GivenPlayerWhichDoesntExist_IdReturned()
     {
-        var teamName = "New Team";
-
         AddPlayerCommand command = new()
         {
             FirstName = "Johah",
@@ -21,7 +19,7 @@ public class CreatePlayerTests : BaseTest
             Height = 196
         };
 
-        AddPlayerCommandHandler handler = new (TestDbContext, mapper);
+        AddPlayerCommandHandler handler = new (testDbContext, mapper);
 
         var teamId = await handler.Handle(command, CancellationToken.None);
 

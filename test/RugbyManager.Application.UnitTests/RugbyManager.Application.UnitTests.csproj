@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -25,13 +25,14 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\src\RugbyManager.Application\RugbyManager.Application.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Mapping\" />
-    <Folder Include="PlayerTests\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\RugbyManager.Application\RugbyManager.Application.csproj" />
   </ItemGroup>
 
 </Project>

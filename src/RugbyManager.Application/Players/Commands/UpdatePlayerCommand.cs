@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RugbyManager.Application.Common.Interfaces;
+using RugbyManager.Application.Common.Mapping;
+using RugbyManager.Application.Common.Models.Player;
 using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.Players.Commands;
 
-public class UpdatePlayerCommand : IRequest
+public class UpdatePlayerCommand : IRequest, IMapFrom<UpdatePlayerRequest>
 {
     public int PlayerId { get; set; }
     public string? FirstName { get; set; }

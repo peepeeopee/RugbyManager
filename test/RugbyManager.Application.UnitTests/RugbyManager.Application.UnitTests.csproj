@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Mapping\" />
+    <Folder Include="TransferTests\" />
   </ItemGroup>
 
 

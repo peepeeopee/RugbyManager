@@ -10,7 +10,8 @@
     <Folder Include="Common\Mapping\" />
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Extensions\" />
-    <Folder Include="Teams\Queries\" />
+    <Folder Include="Transfers\Commands\" />
+    <Folder Include="Transfers\Validators\" />
   </ItemGroup>
 
   <ItemGroup>

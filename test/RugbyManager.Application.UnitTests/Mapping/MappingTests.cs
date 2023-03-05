@@ -8,6 +8,8 @@ using RugbyManager.Application.Teams.Commands;
 using RugbyManager.Application.Common.Models.Player;
 using RugbyManager.Application.Common.Models.Stadium;
 using RugbyManager.Application.Common.Models.Team;
+using RugbyManager.Application.Common.Models.Transfers;
+using RugbyManager.Application.Transfers.Commands;
 
 namespace RugbyManager.Application.UnitTests.Mapping;
 
@@ -39,6 +41,7 @@ public class MappingTests
     [InlineData(typeof(UpdateTeamRequest), typeof(UpdateTeamCommand))]
     [InlineData(typeof(RemovePlayerRequest), typeof(RemovePlayerCommand))]
     [InlineData(typeof(RemoveStadiumRequest), typeof(RemoveStadiumCommand))]
+    [InlineData(typeof(TransferPlayerRequest), typeof(TransferPlayerCommand))]
     public void GivenSourceType_Mapped_ToDestinationType(Type sourceType, Type destinationType)
     {
         var source = GetInstanceOf(sourceType);

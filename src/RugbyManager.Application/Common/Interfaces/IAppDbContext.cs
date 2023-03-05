@@ -9,6 +9,7 @@ public interface IAppDbContext
     DbSet<Stadium> Stadiums { get; }
     DbSet<Team> Teams { get; }
     DbSet<Transfer> Transfers { get; }
+    DbSet<TeamMembership> TeamMemberships { get; }
 
     Task<int> SaveChangesAsync(CancellationToken token = default);
 }

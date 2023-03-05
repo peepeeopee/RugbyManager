@@ -11,5 +11,5 @@ public class TeamDto : IMapFrom<Team>
     public string? StadiumName { get; set; }
     public int? StadiumCapacity { get; set; }
 
-    public IList<PlayerDto> Players { get; set; } = new List<PlayerDto>();
+    public IList<TeamMemberDto> TeamMembers { get; set; } = new List<TeamMemberDto>();
 }

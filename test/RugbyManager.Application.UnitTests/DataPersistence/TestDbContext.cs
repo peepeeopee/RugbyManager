@@ -10,7 +10,8 @@ public class TestDbContext : DbContext, IAppDbContext
     public DbSet<Stadium> Stadiums { get; set; }
     public DbSet<Team> Teams { get; set; }
     public DbSet<Transfer> Transfers { get; set; }
-    
+    public DbSet<TeamMembership> TeamMemberships { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseInMemoryDatabase("TestDb");

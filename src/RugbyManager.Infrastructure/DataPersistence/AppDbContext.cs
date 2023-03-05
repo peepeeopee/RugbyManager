@@ -10,6 +10,7 @@ public class AppDbContext : DbContext, IAppDbContext
     public DbSet<Stadium> Stadiums => Set<Stadium>();
     public DbSet<Team> Teams => Set<Team>();
     public DbSet<Transfer> Transfers => Set<Transfer>();
+    public DbSet<TeamMembership> TeamMemberships => Set<TeamMembership>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {

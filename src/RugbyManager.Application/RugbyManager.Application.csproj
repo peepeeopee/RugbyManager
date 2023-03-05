@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RugbyManager.Domain\RugbyManager.Domain.csproj" />
+    <ProjectReference Include="..\RugbyManager.Domain\RugbyManager.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

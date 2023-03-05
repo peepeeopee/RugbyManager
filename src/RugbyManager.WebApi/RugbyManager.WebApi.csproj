@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RugbyManager.Infrastructure\RugbyManager.Infrastructure.csproj" />
+    <ProjectReference Include="..\RugbyManager.Infrastructure\RugbyManager.Infrastructure.csproj" />
     <ProjectReference Include="..\RugbyManager.Application\RugbyManager.Application.csproj" />
   </ItemGroup>
 

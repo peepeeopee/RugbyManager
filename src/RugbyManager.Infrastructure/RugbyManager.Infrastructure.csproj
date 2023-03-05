@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\RugbyManager.Application\RugbyManager.Application.csproj" />
+    <ProjectReference Include="..\RugbyManager.Application\RugbyManager.Application.csproj" />
   </ItemGroup>
 
 </Project>

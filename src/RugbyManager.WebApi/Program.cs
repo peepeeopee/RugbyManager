@@ -27,6 +27,7 @@ app.UseHttpsRedirection();
 app.AddTeamEndPoints();
 app.AddPlayerEndPoints();
 app.AddStadiumEndpoints();
+app.AddTransferEndpoints();
 
 app.UseRateLimiter();
 

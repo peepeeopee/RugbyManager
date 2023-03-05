@@ -7,7 +7,6 @@ using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.UnitTests.TransferTests;
 
-[Collection("Sequential")]
 public class AddTransferTests : BaseTest
 {
     [Fact]
@@ -19,8 +18,8 @@ public class AddTransferTests : BaseTest
             Surname = "Wilkinson",
             Height = 178
         };
-        await testDbContext.Players.AddAsync(player);
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.Players.AddAsync(player);
+        await _testDbContext.SaveChangesAsync();
 
         TransferPlayerCommand command = new()
         {
@@ -28,14 +27,13 @@ public class AddTransferTests : BaseTest
             TeamId = 420
         };
 
-        TransferPlayerCommandHandler handler = new(testDbContext);
+        TransferPlayerCommandHandler handler = new(_testDbContext);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None)
         );
 
         await act.Should()
                  .ThrowAsync<TeamNotFoundException>();
-
     }
 
     [Fact]
@@ -45,8 +43,8 @@ public class AddTransferTests : BaseTest
         {
             Name = "Sharks"
         };
-        await testDbContext.Teams.AddAsync(team);
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.Teams.AddAsync(team);
+        await _testDbContext.SaveChangesAsync();
 
         TransferPlayerCommand command = new()
         {
@@ -54,7 +52,7 @@ public class AddTransferTests : BaseTest
             TeamId = team.Id
         };
 
-        TransferPlayerCommandHandler handler = new(testDbContext);
+        TransferPlayerCommandHandler handler = new(_testDbContext);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None)
         );
@@ -64,22 +62,23 @@ public class AddTransferTests : BaseTest
     }
 
     [Fact]
-    public async Task TransferPlayer_TransferToExistingTeamForExistinPlayer_PlayerNotFoundExceptionThrown()
+    public async Task
+        TransferPlayer_TransferToExistingTeamForExistinPlayer_PlayerNotFoundExceptionThrown()
     {
         Team team = new()
         {
             Name = "Sharks"
         };
-        await testDbContext.Teams.AddAsync(team);
+        await _testDbContext.Teams.AddAsync(team);
         Player player = new()
         {
             FirstName = "Johnny",
             Surname = "Wilkinson",
             Height = 178
         };
-        await testDbContext.Players.AddAsync(player);
+        await _testDbContext.Players.AddAsync(player);
 
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.SaveChangesAsync();
 
         TransferPlayerCommand command = new()
         {
@@ -87,12 +86,14 @@ public class AddTransferTests : BaseTest
             TeamId = team.Id
         };
 
-        TransferPlayerCommandHandler handler = new(testDbContext);
+        TransferPlayerCommandHandler handler = new(_testDbContext);
 
         await handler.Handle(command, CancellationToken.None);
 
-        var teamMembership = await testDbContext.TeamMemberships.FirstOrDefaultAsync(tm =>
-            tm.PlayerId == command.PlayerId && tm.TeamId == command.TeamId);
+        var teamMembership = await _testDbContext.TeamMemberships
+                                                .FirstOrDefaultAsync(tm =>
+                                                    tm.PlayerId == command.PlayerId &&
+                                                    tm.TeamId == command.TeamId);
 
         teamMembership.Should()
                       .NotBeNull();

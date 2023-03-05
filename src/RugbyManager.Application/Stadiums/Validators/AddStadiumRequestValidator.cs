@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using RugbyManager.Application.Common.Models;
 
-namespace RugbyManager.Application.Common.Validators;
+namespace RugbyManager.Application.Stadiums.Validators;
 
 public class AddStadiumRequestValidator : AbstractValidator<AddStadiumRequest>
 {

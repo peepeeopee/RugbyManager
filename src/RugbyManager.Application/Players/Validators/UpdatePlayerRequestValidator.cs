@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 using RugbyManager.Application.Common.Models;
-using RugbyManager.Application.Players.Commands;
 
-namespace RugbyManager.Application.Common.Validators;
+namespace RugbyManager.Application.Players.Validators;
 
-public class AddPlayerRequestValidator : AbstractValidator<AddPlayerRequest>
+public class UpdatePlayerRequestValidator : AbstractValidator<UpdatePlayerRequest>
 {
-    public AddPlayerRequestValidator()
+    public UpdatePlayerRequestValidator()
     {
         RuleFor(x => x.FirstName).NotEmpty();
         RuleFor(x => x.Surname)

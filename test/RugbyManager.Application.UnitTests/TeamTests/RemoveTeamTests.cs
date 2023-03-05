@@ -16,7 +16,7 @@ public class RemoveTeamTests : BaseTest
             TeamId = 21312
         };
 
-        RemoveTeamCommandHandler handler = new(testDbContext);
+        RemoveTeamCommandHandler handler = new(_testDbContext);
 
         var act =
             handler.Awaiting(x => x.Handle(command, CancellationToken.None)
@@ -34,16 +34,16 @@ public class RemoveTeamTests : BaseTest
             Name = "ToBeDeleted"
         };
 
-        await testDbContext.Teams.AddAsync(team);
+        await _testDbContext.Teams.AddAsync(team);
 
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.SaveChangesAsync();
 
         RemoveTeamCommand command = new()
         {
             TeamId = team.Id
         };
 
-        RemoveTeamCommandHandler handler = new(testDbContext);
+        RemoveTeamCommandHandler handler = new(_testDbContext);
 
         await handler.Handle(command, CancellationToken.None);
     }

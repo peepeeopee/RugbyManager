@@ -8,7 +8,6 @@ using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.UnitTests.TeamTests;
 
-[Collection("Sequential")]
 public class CreateTeamTests : BaseTest
 {
     [Fact(Skip = "Moving to integration tests")]
@@ -16,19 +15,19 @@ public class CreateTeamTests : BaseTest
     {
         var teamName = "Existing Team";
 
-        await testDbContext.Teams.AddAsync(new Team()
+        await _testDbContext.Teams.AddAsync(new Team()
         {
             Name = teamName
         });
 
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.SaveChangesAsync();
 
         AddTeamCommand command = new ()
         {
             Name = teamName
         };
 
-        var handler = new AddTeamCommandHandler(testDbContext,mapper);
+        var handler = new AddTeamCommandHandler(_testDbContext,_mapper);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -46,7 +45,7 @@ public class CreateTeamTests : BaseTest
             Name = teamName
         };
 
-        var handler = new AddTeamCommandHandler(testDbContext, mapper);
+        var handler = new AddTeamCommandHandler(_testDbContext, _mapper);
 
         var teamId = await handler.Handle(command, CancellationToken.None);
 

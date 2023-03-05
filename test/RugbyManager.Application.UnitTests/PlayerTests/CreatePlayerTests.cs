@@ -6,7 +6,6 @@ using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.UnitTests.PlayerTests;
 
-[Collection("Sequential")]
 public class CreatePlayerTests : BaseTest
 {
     [Fact]
@@ -19,7 +18,7 @@ public class CreatePlayerTests : BaseTest
             Height = 196
         };
 
-        AddPlayerCommandHandler handler = new (testDbContext, mapper);
+        AddPlayerCommandHandler handler = new (_testDbContext, _mapper);
 
         var teamId = await handler.Handle(command, CancellationToken.None);
 

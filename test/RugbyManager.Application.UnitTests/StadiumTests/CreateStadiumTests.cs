@@ -6,7 +6,6 @@ using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.UnitTests.StadiumTests;
 
-[Collection("Sequential")]
 public class CreateStadiumTests : BaseTest
 {
     [Fact(Skip = "Moving to integration tests")]
@@ -14,13 +13,13 @@ public class CreateStadiumTests : BaseTest
     {
         var stadiumName = "Existing Stadium";
 
-        await testDbContext.Stadiums.AddAsync(new Stadium()
+        await _testDbContext.Stadiums.AddAsync(new Stadium()
         {
             Name = stadiumName,
             Capacity = 420
         });
 
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.SaveChangesAsync();
 
         AddStadiumCommand command = new ()
         {
@@ -28,7 +27,7 @@ public class CreateStadiumTests : BaseTest
             Capacity = 420
         };
 
-        var handler = new AddStadiumCommandHandler(testDbContext, mapper);
+        var handler = new AddStadiumCommandHandler(_testDbContext, _mapper);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -47,7 +46,7 @@ public class CreateStadiumTests : BaseTest
             Capacity = 420
         };
 
-        var handler = new AddStadiumCommandHandler(testDbContext, mapper);
+        var handler = new AddStadiumCommandHandler(_testDbContext, _mapper);
 
         var stadiumId = await handler.Handle(command, CancellationToken.None);
 

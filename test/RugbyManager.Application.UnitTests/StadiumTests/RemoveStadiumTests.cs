@@ -5,7 +5,6 @@ using RugbyManager.Domain.Exceptions;
 
 namespace RugbyManager.Application.UnitTests.StadiumTests;
 
-[Collection("Sequential")]
 public class RemoveStadiumTests : BaseTest
 {
     [Fact]
@@ -16,7 +15,7 @@ public class RemoveStadiumTests : BaseTest
             StadiumId = 21312
         };
 
-        RemoveStadiumCommandHandler handler = new(testDbContext);
+        RemoveStadiumCommandHandler handler = new(_testDbContext);
 
         var act =
             handler.Awaiting(x => x.Handle(command, CancellationToken.None)
@@ -35,16 +34,16 @@ public class RemoveStadiumTests : BaseTest
             Name = "ToBeDeleted"
         };
 
-        await testDbContext.Stadiums.AddAsync(stadium);
+        await _testDbContext.Stadiums.AddAsync(stadium);
 
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.SaveChangesAsync();
 
         RemoveStadiumCommand command = new()
         {
             StadiumId = stadium.Id
         };
 
-        RemoveStadiumCommandHandler handler = new(testDbContext);
+        RemoveStadiumCommandHandler handler = new(_testDbContext);
 
         await handler.Handle(command,CancellationToken.None);
     }

@@ -15,7 +15,7 @@ public class RemovePlayerTests : BaseTest
             PlayerId = 69
         };
 
-        RemovePlayerCommandHandler handler = new(testDbContext);
+        RemovePlayerCommandHandler handler = new(_testDbContext);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None));
 
@@ -33,15 +33,15 @@ public class RemovePlayerTests : BaseTest
             Surname = "Du Randt",
             Height = 190
         };
-        testDbContext.Players.Add(playerToDelete);
-        await testDbContext.SaveChangesAsync(CancellationToken.None);
+        _testDbContext.Players.Add(playerToDelete);
+        await _testDbContext.SaveChangesAsync(CancellationToken.None);
 
         RemovePlayerCommand command = new()
         {
             PlayerId = playerToDelete.Id
         };
 
-        RemovePlayerCommandHandler handler = new(testDbContext);
+        RemovePlayerCommandHandler handler = new(_testDbContext);
 
         await handler.Handle(command, CancellationToken.None);
 

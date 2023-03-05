@@ -17,7 +17,7 @@ public class UpdateTeamTests : BaseTest
             TeamId = 345,
         };
 
-        UpdateTeamCommandHandler handler = new(testDbContext);
+        UpdateTeamCommandHandler handler = new(_testDbContext);
 
         var act = handler.Awaiting(x => x.Handle(command, CancellationToken.None)
         );
@@ -34,8 +34,8 @@ public class UpdateTeamTests : BaseTest
             Name = "Golden Lions"
         };
 
-        await testDbContext.Teams.AddAsync(team);
-        await testDbContext.SaveChangesAsync();
+        await _testDbContext.Teams.AddAsync(team);
+        await _testDbContext.SaveChangesAsync();
 
         UpdateTeamCommand command = new()
         {
@@ -43,11 +43,11 @@ public class UpdateTeamTests : BaseTest
             TeamId = team.Id,
         };
 
-        UpdateTeamCommandHandler handler = new(testDbContext);
+        UpdateTeamCommandHandler handler = new(_testDbContext);
 
         await handler.Handle(command, CancellationToken.None);
 
-        var updatedTeam = await testDbContext.Teams.FirstOrDefaultAsync(t => t.Id == team.Id);
+        var updatedTeam = await _testDbContext.Teams.FirstOrDefaultAsync(t => t.Id == team.Id);
 
         updatedTeam!.Name.Should()
                     .Be(command.Name);

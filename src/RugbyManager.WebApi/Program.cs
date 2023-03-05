@@ -12,6 +12,7 @@ using RugbyManager.Application.Players.Commands;
 using RugbyManager.Application.Stadiums.Commands;
 using RugbyManager.Application.Teams.Commands;
 using RugbyManager.Infrastructure;
+using RugbyManager.WebApi;
 using RugbyManager.WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddWebApiServices();
 
 var app = builder.Build();
 
@@ -55,5 +57,7 @@ app.MapPost("/stadium",
    )
    .AddEndpointFilter<ValidationFilter<AddStadiumRequest>>()
    .WithOpenApi();
+
+app.UseRateLimiter();
 
 app.Run();

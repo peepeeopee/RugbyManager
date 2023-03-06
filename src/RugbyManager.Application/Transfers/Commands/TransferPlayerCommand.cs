@@ -43,12 +43,20 @@ public class TransferPlayerCommandHandler : IRequestHandler<TransferPlayerComman
             throw new TeamNotFoundException(request.TeamId);
         }
 
-        var membership = await _appDbContext
-                               .TeamMemberships
-                               .Where(tm => tm.PlayerId == request.PlayerId)
-                               .ToListAsync(cancellationToken);
+        var memberships = await _appDbContext
+                                .TeamMemberships
+                                .Where(tm => tm.PlayerId == request.PlayerId)
+                                .ToListAsync(cancellationToken);
 
-        _appDbContext.TeamMemberships.RemoveRange(membership);
+        var transfers = memberships.Select(m => new Transfer()
+            {
+                FromTeamId = m.TeamId,
+                PlayerId = m.PlayerId,
+                ToTeamId = newTeam.Id
+            });
+
+
+        _appDbContext.TeamMemberships.RemoveRange(memberships);
 
         TeamMembership newMembership = new()
         {
@@ -56,7 +64,11 @@ public class TransferPlayerCommandHandler : IRequestHandler<TransferPlayerComman
             TeamId = request.TeamId,
         };
 
-        await _appDbContext.TeamMemberships.AddAsync(newMembership,cancellationToken);
+        await _appDbContext.TeamMemberships.AddAsync(newMembership, cancellationToken);
+
+        await _appDbContext.SaveChangesAsync(cancellationToken);
+
+        await _appDbContext.Transfers.AddRangeAsync(transfers, cancellationToken);
 
         await _appDbContext.SaveChangesAsync(cancellationToken);
     }

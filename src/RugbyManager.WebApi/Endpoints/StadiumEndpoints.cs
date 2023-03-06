@@ -5,6 +5,7 @@ using RugbyManager.Application.Common.Extensions;
 using RugbyManager.Application.Common.Models.Stadium;
 using RugbyManager.Application.Stadiums.Commands;
 using RugbyManager.Application.Stadiums.Queries;
+using RugbyManager.Domain.Exceptions;
 using RugbyManager.WebApi.Filters;
 
 namespace RugbyManager.WebApi.Endpoints;
@@ -21,6 +22,8 @@ public static class StadiumEndpoints
                     async (IMediator mediator, IMapper mapper) =>
                         await mediator.Send(new GetStadiumsQuery())
                 )
+                .Produces<List<StadiumDto>>()
+                .WithDescription("This endpoint provides a list of all stadiums in the system")
                 .WithOpenApi();
 
         stadiums.MapGet("/{stadiumId}",
@@ -30,6 +33,9 @@ public static class StadiumEndpoints
                             StadiumId = stadiumId
                         })
                 )
+                .Produces<StadiumDto>()
+                .ProducesValidationProblem()
+                .WithDescription("This endpoint provides access to the details of stadium that matches the supplied Id")
                 .AddEndpointFilter<ValidationFilter<GetStadiumByIdQuery>>()
                 .WithOpenApi();
 
@@ -41,6 +47,9 @@ public static class StadiumEndpoints
                         await mediator.Send(
                             request.Transform(((IMapperBase) mapper).Map<AddStadiumCommand>))
                 )
+                .Produces(StatusCodes.Status200OK)
+                .ProducesValidationProblem()
+                .WithDescription("This endpoint provides access to add a new stadium to the system")
                 .AddEndpointFilter<ValidationFilter<AddStadiumRequest>>()
                 .WithOpenApi();
 
@@ -52,6 +61,10 @@ public static class StadiumEndpoints
                         await mediator.Send(
                             request.Transform(((IMapperBase) mapper).Map<UpdateStadiumCommand>))
                 )
+                .WithDescription("This endpoint provides access to update an existing stadium that matches the supplied Id")
+                .Produces(StatusCodes.Status200OK)
+                .Produces<StadiumNotFoundException>(StatusCodes.Status500InternalServerError)
+                .ProducesValidationProblem()
                 .AddEndpointFilter<ValidationFilter<UpdateStadiumRequest>>()
                 .WithOpenApi();
 
@@ -62,6 +75,11 @@ public static class StadiumEndpoints
                             StadiumId = stadiumId
                         }.Transform(mapper.Map<RemoveStadiumCommand>))
                 )
+                .WithDescription("This endpoint provides access to remove an existing stadium that matches the supplied Id")
+                .Produces(StatusCodes.Status200OK)
+                .Produces<StadiumNotFoundException>(StatusCodes.Status500InternalServerError)
+                .Produces<StadiumInUseException>(StatusCodes.Status500InternalServerError)
+                .ProducesValidationProblem()
                 .AddEndpointFilter<ValidationFilter<GetStadiumByIdQuery>>()
                 .WithOpenApi();
     }

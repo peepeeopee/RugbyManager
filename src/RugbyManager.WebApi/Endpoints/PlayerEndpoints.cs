@@ -21,6 +21,7 @@ public static class PlayerEndpoints
                   async (IMediator mediator, IMapper mapper) =>
                       await mediator.Send(new GetPlayersQuery())
               )
+              .WithDescription("This endpoint provides a list of all players in the system")
               .WithOpenApi();
 
         player.MapGet("/{playerId}",
@@ -30,6 +31,9 @@ public static class PlayerEndpoints
                           PlayerId = playerId
                       })
               )
+              .Produces<PlayerDto>()
+              .ProducesValidationProblem()
+              .WithDescription("This endpoint provides access to the details of stadium that matches the supplied Id")
               .AddEndpointFilter<ValidationFilter<GetPlayersQuery>>()
               .WithOpenApi();
 
@@ -38,6 +42,9 @@ public static class PlayerEndpoints
                       await mediator.Send(
                           request.Transform(mapper.Map<AddPlayerCommand>))
               )
+              .Produces(StatusCodes.Status200OK)
+              .ProducesValidationProblem()
+              .WithDescription("This endpoint provides access to add a player stadium to the system")
               .AddEndpointFilter<ValidationFilter<AddPlayerRequest>>()
               .WithOpenApi();
 
@@ -47,6 +54,7 @@ public static class PlayerEndpoints
                           request.Transform(mapper.Map<UpdatePlayerCommand>))
               )
               .AddEndpointFilter<ValidationFilter<UpdatePlayerRequest>>()
+              .WithDescription("This endpoint provides access to update an existing player that matches the supplied Id")
               .WithOpenApi();
 
         player.MapDelete("/{playerId}",
@@ -57,6 +65,8 @@ public static class PlayerEndpoints
                       }.Transform(mapper.Map<RemovePlayerCommand>))
               )
               .AddEndpointFilter<ValidationFilter<RemovePlayerRequest>>()
+              .Produces(StatusCodes.Status200OK)
+              .WithDescription("This endpoint provides access to remove an existing player that matches the supplied Id")
               .WithOpenApi();
     }
 }

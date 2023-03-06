@@ -5,6 +5,7 @@ using RugbyManager.Application.Common.Extensions;
 using RugbyManager.Application.Common.Models.Team;
 using RugbyManager.Application.Teams.Commands;
 using RugbyManager.Application.Teams.Queries;
+using RugbyManager.Domain.Exceptions;
 using RugbyManager.WebApi.Filters;
 
 namespace RugbyManager.WebApi.Endpoints;
@@ -21,6 +22,8 @@ public static class TeamEndpoints
                 async (IMediator mediator, IMapper Mapper) =>
                     await mediator.Send(new GetTeamsQuery())
             )
+            .Produces<List<TeamDto>>()
+            .WithDescription("This endpoint provides a list of all teams in the system")
             .WithOpenApi();
 
         team.MapGet("/{teamId}",
@@ -31,6 +34,9 @@ public static class TeamEndpoints
                     })
             )
             .AddEndpointFilter<ValidationFilter<GetTeamByIdQuery>>()
+            .Produces<TeamDto>()
+            .ProducesValidationProblem()
+            .WithDescription("This endpoint provides access to the details of team that matches the supplied Id")
             .WithOpenApi();
 
         team.MapPost("/",
@@ -38,6 +44,9 @@ public static class TeamEndpoints
                     await mediator.Send(request.Transform(mapper.Map<AddTeamCommand>))
             )
             .AddEndpointFilter<ValidationFilter<AddTeamRequest>>()
+            .Produces(StatusCodes.Status200OK)
+            .ProducesValidationProblem()
+            .WithDescription("This endpoint provides access to add a new team to the system")
             .WithOpenApi();
 
         team.MapPut("/",
@@ -45,6 +54,9 @@ public static class TeamEndpoints
                     await mediator.Send(request.Transform(mapper.Map<UpdateTeamCommand>))
             )
             .AddEndpointFilter<ValidationFilter<UpdateTeamRequest>>()
+            .WithDescription("This endpoint provides access to update an existing team that matches the supplied Id")
+            .Produces(StatusCodes.Status200OK)
+            .Produces<PlayerNotFoundException>(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
         team.MapDelete("/{teamId}",
@@ -55,6 +67,9 @@ public static class TeamEndpoints
                     }.Transform(mapper.Map<RemoveTeamCommand>))
             )
             .AddEndpointFilter<ValidationFilter<RemoveTeamRequest>>()
+            .WithDescription("This endpoint provides access to remove an existing team that matches the supplied Id")
+            .Produces(StatusCodes.Status200OK)
+            .Produces<PlayerNotFoundException>(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
     }
 }

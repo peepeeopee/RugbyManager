@@ -14,7 +14,8 @@ public static class StadiumEndpoints
     public static void AddStadiumEndpoints(this WebApplication app)
     {
         var stadiums = app.MapGroup("/stadiums")
-                         .WithTags("Stadiums");
+                          .AddEndpointFilter<ApiKeyFilter>()
+                          .WithTags("Stadiums");
 
         stadiums.MapGet("/",
                     async (IMediator mediator, IMapper mapper) =>
@@ -33,15 +34,15 @@ public static class StadiumEndpoints
                 .WithOpenApi();
 
         stadiums.MapPost("/",
-                   async (
-                       IMediator mediator,
-                       IMapper mapper,
-                       [FromBody] AddStadiumRequest request) =>
-                       await mediator.Send(
-                           request.Transform(((IMapperBase) mapper).Map<AddStadiumCommand>))
-               )
-               .AddEndpointFilter<ValidationFilter<AddStadiumRequest>>()
-               .WithOpenApi();
+                    async (
+                        IMediator mediator,
+                        IMapper mapper,
+                        [FromBody] AddStadiumRequest request) =>
+                        await mediator.Send(
+                            request.Transform(((IMapperBase) mapper).Map<AddStadiumCommand>))
+                )
+                .AddEndpointFilter<ValidationFilter<AddStadiumRequest>>()
+                .WithOpenApi();
 
         stadiums.MapPut("/",
                     async (
@@ -49,7 +50,7 @@ public static class StadiumEndpoints
                         IMapper mapper,
                         [FromBody] UpdateStadiumRequest request) =>
                         await mediator.Send(
-                            request.Transform(((IMapperBase)mapper).Map<UpdateStadiumCommand>))
+                            request.Transform(((IMapperBase) mapper).Map<UpdateStadiumCommand>))
                 )
                 .AddEndpointFilter<ValidationFilter<UpdateStadiumRequest>>()
                 .WithOpenApi();

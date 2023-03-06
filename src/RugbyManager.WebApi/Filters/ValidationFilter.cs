@@ -1,7 +1,9 @@
-﻿using FluentValidation;
-using System.Net;
+﻿namespace RugbyManager.WebApi.Filters;
 
-namespace RugbyManager.WebApi.Filters;
+using FluentValidation;
+using System.Net;
+using Results = Microsoft.AspNetCore.Http.Results;
+
 
 public class ValidationFilter<T> : IEndpointFilter
 {

@@ -14,6 +14,7 @@ public static class TeamEndpoints
     public static void AddTeamEndPoints(this WebApplication app)
     {
         var team = app.MapGroup("/teams")
+                      .AddEndpointFilter<ApiKeyFilter>()
                       .WithTags("Teams");
 
         team.MapGet("/",

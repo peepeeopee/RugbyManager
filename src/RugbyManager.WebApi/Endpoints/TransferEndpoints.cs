@@ -13,6 +13,7 @@ public static class TransferEndpoints
     public static void AddTransferEndpoints(this WebApplication app)
     {
         var transfers = app.MapGroup("/transfers")
+                           .AddEndpointFilter<ApiKeyFilter>()
                            .WithTags("Transfers");
 
         transfers.MapPost("/",
@@ -20,7 +21,8 @@ public static class TransferEndpoints
                          IMediator mediator,
                          IMapper mapper,
                          [FromBody] TransferPlayerRequest request) =>
-                         await mediator.Send(request.Transform(((IMapperBase) mapper).Map<TransferPlayerCommand>))
+                         await mediator.Send(
+                             request.Transform(((IMapperBase) mapper).Map<TransferPlayerCommand>))
                  )
                  .AddEndpointFilter<ValidationFilter<TransferPlayerRequest>>()
                  .WithOpenApi();

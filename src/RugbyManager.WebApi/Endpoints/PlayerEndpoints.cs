@@ -14,6 +14,7 @@ public static class PlayerEndpoints
     public static void AddPlayerEndPoints(this WebApplication app)
     {
         var player = app.MapGroup("/players")
+                        .AddEndpointFilter<ApiKeyFilter>()
                         .WithTags("Players");
 
         player.MapGet("/",

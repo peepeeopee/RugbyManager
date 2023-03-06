@@ -33,7 +33,6 @@ public static class TeamEndpoints
                         TeamId = teamId
                     })
             )
-            .AddEndpointFilter<ValidationFilter<GetTeamByIdQuery>>()
             .Produces<TeamDto>()
             .ProducesValidationProblem()
             .WithDescription("This endpoint provides access to the details of team that matches the supplied Id")
@@ -66,7 +65,6 @@ public static class TeamEndpoints
                         TeamId = teamId
                     }.Transform(mapper.Map<RemoveTeamCommand>))
             )
-            .AddEndpointFilter<ValidationFilter<RemoveTeamRequest>>()
             .WithDescription("This endpoint provides access to remove an existing team that matches the supplied Id")
             .Produces(StatusCodes.Status200OK)
             .Produces<PlayerNotFoundException>(StatusCodes.Status500InternalServerError)

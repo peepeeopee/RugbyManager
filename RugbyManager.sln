@@ -9,13 +9,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{39EDA0FA-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RugbyManager.Application", "src\RugbyManager.Application\RugbyManager.Application.csproj", "{5444D0A8-04BD-4E64-BF99-771561953A8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RugbyManager.Domain", "src\RugbyManager.Domain\RugbyManager.Domain.csproj", "{D7CF6931-83B0-4331-AD09-3C4810A78D3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RugbyManager.Domain", "src\RugbyManager.Domain\RugbyManager.Domain.csproj", "{D7CF6931-83B0-4331-AD09-3C4810A78D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RugbyManager.Application.UnitTests", "test\RugbyManager.Application.UnitTests\RugbyManager.Application.UnitTests.csproj", "{93135B87-F085-4B30-A247-41787A53A710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RugbyManager.Application.UnitTests", "test\RugbyManager.Application.UnitTests\RugbyManager.Application.UnitTests.csproj", "{93135B87-F085-4B30-A247-41787A53A710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RugbyManager.WebApi", "src\RugbyManager.WebApi\RugbyManager.WebApi.csproj", "{C5DCDFB7-9CC4-49DF-8360-9299B032DEB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RugbyManager.WebApi", "src\RugbyManager.WebApi\RugbyManager.WebApi.csproj", "{C5DCDFB7-9CC4-49DF-8360-9299B032DEB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RugbyManager.Infrastructure", "src\RugbyManager.Infrastructure\RugbyManager.Infrastructure.csproj", "{27D35ADB-C028-4DCE-9E58-EF2F81FCD6D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RugbyManager.Infrastructure", "src\RugbyManager.Infrastructure\RugbyManager.Infrastructure.csproj", "{27D35ADB-C028-4DCE-9E58-EF2F81FCD6D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{505FBD56-D4D1-4B27-B19C-B2FCDA6021D7}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

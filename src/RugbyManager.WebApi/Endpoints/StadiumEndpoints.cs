@@ -36,7 +36,6 @@ public static class StadiumEndpoints
                 .Produces<StadiumDto>()
                 .ProducesValidationProblem()
                 .WithDescription("This endpoint provides access to the details of stadium that matches the supplied Id")
-                .AddEndpointFilter<ValidationFilter<GetStadiumByIdQuery>>()
                 .WithOpenApi();
 
         stadiums.MapPost("/",
@@ -45,7 +44,7 @@ public static class StadiumEndpoints
                         IMapper mapper,
                         [FromBody] AddStadiumRequest request) =>
                         await mediator.Send(
-                            request.Transform(((IMapperBase) mapper).Map<AddStadiumCommand>))
+                            request.Transform(mapper.Map<AddStadiumCommand>))
                 )
                 .Produces(StatusCodes.Status200OK)
                 .ProducesValidationProblem()
@@ -59,7 +58,7 @@ public static class StadiumEndpoints
                         IMapper mapper,
                         [FromBody] UpdateStadiumRequest request) =>
                         await mediator.Send(
-                            request.Transform(((IMapperBase) mapper).Map<UpdateStadiumCommand>))
+                            request.Transform(mapper.Map<UpdateStadiumCommand>))
                 )
                 .WithDescription("This endpoint provides access to update an existing stadium that matches the supplied Id")
                 .Produces(StatusCodes.Status200OK)
@@ -80,7 +79,6 @@ public static class StadiumEndpoints
                 .Produces<StadiumNotFoundException>(StatusCodes.Status500InternalServerError)
                 .Produces<StadiumInUseException>(StatusCodes.Status500InternalServerError)
                 .ProducesValidationProblem()
-                .AddEndpointFilter<ValidationFilter<GetStadiumByIdQuery>>()
                 .WithOpenApi();
     }
 }

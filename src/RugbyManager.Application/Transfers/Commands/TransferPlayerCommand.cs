@@ -48,15 +48,26 @@ public class TransferPlayerCommandHandler : IRequestHandler<TransferPlayerComman
                                 .Where(tm => tm.PlayerId == request.PlayerId)
                                 .ToListAsync(cancellationToken);
 
-        var transfers = memberships.Select(m => new Transfer()
+        var transfers = memberships.Any() 
+                ? memberships.Select(m => new Transfer()
             {
                 FromTeamId = m.TeamId,
                 PlayerId = m.PlayerId,
                 ToTeamId = newTeam.Id
-            });
+            })
+                : new List<Transfer>()
+                {
+                    new()
+                    {
+                        PlayerId = player.Id,
+                        ToTeamId = newTeam.Id
+                    }
+                };
 
-
+        
         _appDbContext.TeamMemberships.RemoveRange(memberships);
+
+        await _appDbContext.SaveChangesAsync(cancellationToken);
 
         TeamMembership newMembership = new()
         {
@@ -66,7 +77,6 @@ public class TransferPlayerCommandHandler : IRequestHandler<TransferPlayerComman
 
         await _appDbContext.TeamMemberships.AddAsync(newMembership, cancellationToken);
 
-        await _appDbContext.SaveChangesAsync(cancellationToken);
 
         await _appDbContext.Transfers.AddRangeAsync(transfers, cancellationToken);
 

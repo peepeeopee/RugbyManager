@@ -25,6 +25,9 @@ public class GetTransfersQueryHandler : IRequestHandler<GetTransfersQuery, List<
         GetTransfersQuery request,
         CancellationToken cancellationToken) =>
         await _appDbContext.Transfers
+                           .Include(x => x.Player)
+                           .Include(x => x.FromTeam)
+                           .Include(x => x.ToTeam)
                            .ProjectTo<TransferDto>(_mapper.ConfigurationProvider)
                            .ToListAsync(cancellationToken);
 }

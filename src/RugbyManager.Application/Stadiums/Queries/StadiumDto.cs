@@ -1,6 +1,9 @@
-﻿namespace RugbyManager.Application.Stadiums.Queries;
+﻿using RugbyManager.Application.Common.Mapping;
+using RugbyManager.Domain.Entities;
 
-public class StadiumDto
+namespace RugbyManager.Application.Stadiums.Queries;
+
+public class StadiumDto : IMapFrom<Stadium>
 {
     public int Id { get; set; }
     public string? Name { get; set; }

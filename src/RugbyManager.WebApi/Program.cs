@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using RugbyManager.Application;
 using RugbyManager.Infrastructure;
+using RugbyManager.Infrastructure.DataPersistence;
 using RugbyManager.WebApi;
 using RugbyManager.WebApi.Authentication;
 using RugbyManager.WebApi.Endpoints;
@@ -49,6 +50,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
+    // Initialise and seed database
+    using (var scope = app.Services.CreateScope())
+    {
+        var initialiser = scope.ServiceProvider.GetRequiredService<AppDbContextInitializer>();
+        await initialiser.InitialiseAsync();
+        await initialiser.SeedAsync();
+    }
 }
 
 app.UseHttpsRedirection();

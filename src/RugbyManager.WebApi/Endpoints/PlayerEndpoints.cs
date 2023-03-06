@@ -34,7 +34,6 @@ public static class PlayerEndpoints
               .Produces<PlayerDto>()
               .ProducesValidationProblem()
               .WithDescription("This endpoint provides access to the details of stadium that matches the supplied Id")
-              .AddEndpointFilter<ValidationFilter<GetPlayersQuery>>()
               .WithOpenApi();
 
         player.MapPost("/",
@@ -64,7 +63,6 @@ public static class PlayerEndpoints
                           PlayerId = playerId
                       }.Transform(mapper.Map<RemovePlayerCommand>))
               )
-              .AddEndpointFilter<ValidationFilter<RemovePlayerRequest>>()
               .Produces(StatusCodes.Status200OK)
               .WithDescription("This endpoint provides access to remove an existing player that matches the supplied Id")
               .WithOpenApi();

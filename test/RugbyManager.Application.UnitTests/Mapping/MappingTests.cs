@@ -10,6 +10,7 @@ using RugbyManager.Application.Common.Models.Stadium;
 using RugbyManager.Application.Common.Models.Team;
 using RugbyManager.Application.Common.Models.Transfers;
 using RugbyManager.Application.Players.Queries;
+using RugbyManager.Application.Stadiums.Queries;
 using RugbyManager.Application.Teams.Queries;
 using RugbyManager.Application.Transfers.Commands;
 using RugbyManager.Domain.Entities;
@@ -57,6 +58,7 @@ public class MappingTests
     [InlineData(typeof(Player), typeof(PlayerDto))]
     [InlineData(typeof(Team), typeof(TeamDto))]
     [InlineData(typeof(TeamMembership), typeof(TeamMemberDto))]
+    [InlineData(typeof(Stadium),typeof(StadiumDto))]
     public void GivenSourceType_Mapped_ToDestinationType(Type sourceType, Type destinationType)
     {
         var source = GetInstanceOf(sourceType);

@@ -63,7 +63,7 @@ public class AddTransferTests : BaseTest
 
     [Fact]
     public async Task
-        TransferPlayer_TransferToExistingTeamForExistinPlayer_PlayerNotFoundExceptionThrown()
+        TransferPlayer_TransferToExistingTeamForExistingPlayer_PlayerNotFoundExceptionThrown()
     {
         Team team = new()
         {

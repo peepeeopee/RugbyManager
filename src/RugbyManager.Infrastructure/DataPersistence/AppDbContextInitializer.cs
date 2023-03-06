@@ -99,7 +99,15 @@ public class AppDbContextInitializer
                 Surname = "Fourie",
                 Height = 190
             };
+            Player player3 = new()
+            {
+                FirstName = "Peter",
+                Surname = "Antoncich",
+                Height = 185
+            };
             _context.Players.Add(player1);
+            _context.Players.Add(player2);
+            _context.Players.Add(player3);
 
             await _context.SaveChangesAsync();
 
@@ -113,11 +121,17 @@ public class AppDbContextInitializer
                 PlayerId = player2.Id,
                 TeamId = team2.Id
             };
+            TeamMembership teamMembership3 = new()
+            {
+                PlayerId = player3.Id,
+                TeamId = team2.Id
+            };
 
             await _context.TeamMemberships.AddRangeAsync(new List<TeamMembership>()
             {
                 teamMembership1,
-                teamMembership2
+                teamMembership2,
+                teamMembership3
             });
 
             await _context.SaveChangesAsync();

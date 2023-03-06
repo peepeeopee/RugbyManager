@@ -5,6 +5,8 @@ A backend implementation of rugby manager application
 
 ## DB Design diagram
 
+
+
 ## How to run the application
 
 To run the application without a database, open the appsettings.json and ensure the ```UseInMemoryDatabase``` entry is set to true
@@ -14,6 +16,8 @@ Then from the .\src\RugbyManager.WebApi folder, run the following command
 
 To test the application, run the below command from the .\test folder
 ```dotnet test```
+
+The API Key is ```dcd7e85c-a1ac-4662-89e2-e06000f68f1c```, which you can use from Swagger
 
 ## Reason for specific designs and interfaces
 
@@ -67,3 +71,18 @@ I broke the project down into chunks as below is the rough breakdown of the time
 
 
 ## If you had more time, what would you do differently? Also, what would you have added additionally
+
+What would I do differently:
+
+* Try out a different database sofware/ORM to get exposure to something other than EFCore
+* Could have used the old school MVC-style controllers to show DependencyInjection more clearly
+
+What I would want to add:
+
+* OpenID authentication through an Identity Provider such as Google, Twitter or Duende
+* User managment and roles
+* A some kind of front-end 
+* Integration tests
+* Benchmarking using something like BenchmarkDotNet
+* Additional error handling
+* Health checks

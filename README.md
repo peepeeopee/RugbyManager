@@ -5,7 +5,7 @@ A backend implementation of rugby manager application
 
 ## DB Design diagram
 
-
+![DB Diagram](DatabaseDiagram.png)
 
 ## How to run the application
 

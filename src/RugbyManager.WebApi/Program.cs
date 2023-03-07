@@ -5,6 +5,7 @@ using RugbyManager.Infrastructure.DataPersistence;
 using RugbyManager.WebApi;
 using RugbyManager.WebApi.Authentication;
 using RugbyManager.WebApi.Endpoints;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +50,23 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        //Show more of the model by default
+        c.DefaultModelExpandDepth(2);
+
+        //Close all of the major nodes
+        c.DocExpansion(DocExpansion.None);
+
+        //Show the example by default
+        c.DefaultModelRendering(ModelRendering.Example);
+
+        //Turn on Try it by default
+        c.EnableTryItOutByDefault();
+
+        //Performance Requirement - sorry. Highlighting kills javascript rendering on big json
+        c.ConfigObject.AdditionalItems.Add("syntaxHighlight", false);
+    });
     
     // Initialise and seed database
     using (var scope = app.Services.CreateScope())
